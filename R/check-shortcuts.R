@@ -1,7 +1,7 @@
 
 ## Various OSes --------------------------------------------------------
 
-#' Check an R package on an r-hub platform
+#' Check an R package on an R-hub platform
 #'
 #' These functions provide a quick easy to use interface to check a
 #' package on a platform with some particular aspect. Which platform
@@ -53,6 +53,15 @@ check_on_ubuntu <- function(path = ".", ...) {
 
 check_on_fedora <- function(path = ".", ...) {
   check(path = path, platform = check_shortcut_platforms$fedora, ...)
+}
+
+#' @export
+#' @rdname check_shortcuts
+
+check_on_solaris <- function(path = ".", check_args =
+                             "'--no-manual --no-build-vignettes'", ...) {
+  check(path = path, platform = check_shortcut_platforms$solaris,
+        check_args = check_args, ...)
 }
 
 #' @export
@@ -125,5 +134,6 @@ check_shortcut_platforms <- list(
   "debian"     = "debian-gcc-release",
   "ubuntu"     = "ubuntu-gcc-release",
   "fedora"     = "fedora-gcc-devel",
-  "centos"     = "linux-x86_64-centos6-epel"
+  "centos"     = "linux-x86_64-centos6-epel",
+  "solaris"    = "solaris-x86-patched"
 )
