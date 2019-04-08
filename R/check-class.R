@@ -226,40 +226,78 @@ check_cran_summary <- function(self, private) {
   self$update()
 
   x <- private$status_
+  
+  statuses <- map_chr(x, "[[", "status")
 
-  cat("## Test environments\n")
+  if (any(statuses %in% c("in-progress", "created"))) {
+    stop(paste("At least one of the builds has not finished yet.",
+               "Please wait before calling `cran_summary()` again."), 
+         call. = FALSE)
+  }
+  
+  if (any(statuses %in% problem_statuses())) {
+    platforms <- lapply(x, "[[", "platform")
+    platform_names <- map_chr(platforms, "[[", "name")
+    stop(paste("Build failures on platforms:",
+               toString(platform_names[statuses %in% problem_statuses()]),
+               ". \n",
+               "Read the log(s) to fix and if needed ask for help via ",
+               "https://docs.r-hub.io/#pkg-dev-help"), 
+         call. = FALSE)
+  }
+
   result <- do.call("rbind",
                     lapply(x, rectangle_status))
-  systems <- paste0(vapply(x, function(xx) xx$platform$name, ""),
+  systems <- paste0("- R-hub ",
+                    vapply(x, function(xx) xx$platform$name, ""),
                     " (",
                     vapply(x, function(xx) xx$platform$rversion, ""),
                     ")")
-  cat(paste0("- R-hub ",
-             systems,
-             "\n"))
+  lines <- paste0(systems, "\n")
+
+  if ("hash" %in% names(result)){
+    message("For a CRAN submission we recommend that you fix all NOTEs, WARNINGs and ERRORs.")
+    unique_results <- unique(result[, c("type", "hash")])
+    
+    makeshift <- structure(
+      list(
+        package = x$package,
+        version = toString(vapply(x, function(xx) xx$platform$name, "")),
+        rversion = toString(systems),
+        output = list(),
+        platform = toString(systems),
+        notes = unlist(lapply(unique(unique_results$hash[unique_results$type == "NOTE"]),
+                              combine_message, result = result)),
+        warnings = unlist(lapply(unique(unique_results$hash[unique_results$type == "WARNING"]),
+                                 combine_message, result = result)),
+        errors = unlist(lapply(unique(unique_results$hash[unique_results$type == "ERROR"]),
+                               combine_message, result = result))
+      ),
+      class = "rcmdcheck"
+    )
+    
+  } else {
+    makeshift <- structure(
+      list(
+        package = x$package,
+        version = toString(vapply(x, function(xx) xx$platform$name, "")),
+        rversion = toString(systems),
+        output = list(),
+        platform = toString(systems),
+        notes = NULL,
+        warnings = NULL,
+        errors = NULL
+      ),
+      class = "rcmdcheck"
+    )
+  }
+  
+  cat("## Test environments\n")
+  cat(lines, sep = "")
   cat("\n")
   cat("## R CMD check results\n")
-
-  unique_results <- unique(result[, c("type", "hash")])
-
-  makeshift <- structure(
-    list(
-      package = x$package,
-      version = toString(vapply(x, function(xx) xx$platform$name, "")),
-      rversion = toString(systems),
-      output = list(),
-      platform = toString(systems),
-      notes = unlist(lapply(unique(unique_results$hash[unique_results$type == "NOTE"]),
-                            combine_message, result = result)),
-      warnings = unlist(lapply(unique(unique_results$hash[unique_results$type == "WARNING"]),
-                               combine_message, result = result)),
-      errors = unlist(lapply(unique(unique_results$hash[unique_results$type == "ERROR"]),
-                             combine_message, result = result))
-    ),
-    class = "rcmdcheck"
-  )
   print(makeshift, header = FALSE)
-
+  
   invisible(self)
 }
 
@@ -274,6 +312,7 @@ get_status_part <- function(part, x){
 }
 
 rectangle_status <- function(x){
+ 
   df <- rbind(data.frame(type = "ERROR",
                          message = get_status_part("errors", x$result),
                          stringsAsFactors = FALSE),
@@ -285,12 +324,18 @@ rectangle_status <- function(x){
                          stringsAsFactors = FALSE))
 
   df <- df[df$message != "",]
+  
+  if(nrow(df) == 0){
+    df <- data.frame(package = x$package)
+  } else{
+    df$hash <- hash_check(df$message)
+  }
+  
   df$package <- x$package
   df$version <- x$version
   df$submitted <- x$submitted
   df$platform <- paste0(x$platform$name, " (", x$platform$rversion,
                         ")")
-  df$hash <- hash_check(df$message)
 
   return(df)
 }
