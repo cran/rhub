@@ -8,7 +8,7 @@
 #' The `rhub` package stores validated email addresses in a user
 #' configuration file, at a platform-dependent location.
 #' On your current platform the file is at
-#' \Sexpr{rhub:::email_file()}.
+#' \Sexpr[stage=render]{rhub:::email_file()}.
 #'
 #' To validate a new email address, call this function from an interactive
 #' R session, without any arguments.
@@ -39,7 +39,8 @@ validate_email <- function(email = NULL, token = NULL) {
   email_add_token(email, token)
   message("Token added for ", sQuote(email))
   cat("\n")
-
+  token_file_msg()
+  cat("\n")
   invisible()
 }
 
@@ -139,6 +140,10 @@ list_validated_emails <- function() {
 list_validated_emails2 <- function(msg_if_empty = TRUE) {
   file <- email_file()
   res <- if (file.exists(file)) {
+    if (is_interactive()) {
+      token_file_msg()
+    }
+    
     structure(
       read.csv(file, stringsAsFactors = FALSE, header = FALSE),
       names = c("email", "token")
@@ -217,4 +222,15 @@ email_add_token <- function(email, token) {
   )
 
   invisible()
+}
+
+token_file_msg <- function() {
+  message(
+    crayon::green(
+      paste0(
+        "For info the token(s) and email(s) are stored at ",
+        email_file()
+      )
+    )
+  )
 }

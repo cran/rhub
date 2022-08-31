@@ -37,6 +37,7 @@ NULL
 #' @section Usage:
 #' ```
 #' ch <- rhub_check$new(ids = NULL, status = NULL, group = NULL)
+#' ch$get_ids()
 #' ch$update()
 #' ch$print(...)
 #' ch$browse(which = NULL)
@@ -66,6 +67,8 @@ NULL
 #' submitted from the current R session. Do not confuse `rhub_check`/`rhub_check_for_cran`
 #' (classes) with [check()] or [check_for_cran()] (functions).
 #'
+#' `ch$get_ids()` returns the check ids. These can be used to query if a
+#' check has finished.
 #'
 #' `ch$update()` updates the status of the check. Printing the check
 #' status to the screen does not perform an update, unless the status of
@@ -101,6 +104,8 @@ rhub_check <- R6Class(
 
     initialize = function(ids = NULL, status = NULL, group = NULL)
       check_init(self, private, ids, status, group),
+
+    get_ids = function() private$ids_,
 
     update = function()
       check_update(self, private),
@@ -248,6 +253,7 @@ check_cran_summary <- function(self, private) {
 
   result <- do.call("rbind",
                     lapply(x, rectangle_status))
+  
   systems <- paste0("- R-hub ",
                     vapply(x, function(xx) xx$platform$name, ""),
                     " (",
@@ -255,7 +261,10 @@ check_cran_summary <- function(self, private) {
                     ")")
   lines <- paste0(systems, "\n")
 
-  if ("hash" %in% names(result)){
+  
+  result <- result[!is.na(result$type),]
+  
+  if (nrow(result) > 0){
     message("For a CRAN submission we recommend that you fix all NOTEs, WARNINGs and ERRORs.")
     unique_results <- unique(result[, c("type", "hash")])
     
@@ -326,7 +335,10 @@ rectangle_status <- function(x){
   df <- df[df$message != "",]
   
   if(nrow(df) == 0){
-    df <- data.frame(package = x$package)
+    df <- data.frame(package = x$package,
+                     type = NA,
+                     message = NA, 
+                     hash = NA)
   } else{
     df$hash <- hash_check(df$message)
   }
@@ -385,6 +397,18 @@ first_line <- function(x) {
 get_check <- function(ids) {
   assert_that(is_check_ids(ids))
 
+  short <- grep(re_id, ids, invert = TRUE, value = TRUE)
+  if (length(short) &&
+      length(package_data$ids) == 0 &&
+      length(package_data$groups) == 0) {
+    stop(
+      "Short check id '", short[1], "' ",
+      if (length(short) > 1) paste0("(and ", length(short)-1, " more) "),
+      "can only be used for cached ids, and no ids are cached yet.\n",
+      "  Try calling `list_my_checks()` or `list_package_checks()` first."
+    )
+  }
+  
   sle <- cache_get_ids(ids)
   grp <- cache_get_group_ids(ids)
 
@@ -410,3 +434,5 @@ get_check <- function(ids) {
     stop(err)
   }
 }
+
+re_id <- "-[0-9a-f]{32}$"

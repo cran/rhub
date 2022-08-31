@@ -1,45 +1,75 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 
 
 <title>Local Linux checks with Docker</title>
 
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -48,9 +78,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -90,13 +120,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -104,6 +141,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
+
 
 
 
@@ -117,9 +155,6 @@ padding-right: 2em;
 font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 14px;
 line-height: 1.35;
-}
-#header {
-text-align: center;
 }
 #TOC {
 clear: both;
@@ -288,8 +323,12 @@ code > span.st { color: #d14; }
 code > span.co { color: #888888; font-style: italic; } 
 code > span.ot { color: #007020; } 
 code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
+
+
+
 
 </head>
 
@@ -302,47 +341,93 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 
 
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(rhub)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rhub)</span></code></pre></div>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p>Scenario: there’s a bug in the check results of your package on a CRAN Linux platform, or you saw such a bug even before CRAN submission, by building your package on a R-hub Linux platform. How can you reproduce and fix the bug? Submitting to the R-hub platform (<a href="https://docs.r-hub.io/#rhub-cran-platforms">or the R-hub platform that’s closest to the CRAN platform</a>) after each tweak of your code would have a high turnaround so is not optimal for debugging. R-hub’s Linux Docker images are available for you to use, so you can run the R-hub Linux builders locally.</p>
-<p><strong>Warning: at the moment, the functions are not tested on Windows! Bug reports are welcome :-)</strong></p>
+<p>Scenario: there’s a bug in the check results of your package on a
+CRAN Linux platform, or you saw such a bug even before CRAN submission,
+by building your package on a R-hub Linux platform. How can you
+reproduce and fix the bug? Submitting to the R-hub platform (<a href="https://docs.r-hub.io/#rhub-cran-platforms">or the R-hub platform
+that’s closest to the CRAN platform</a>) after each tweak of your code
+would have a high turnaround so is not optimal for debugging. R-hub’s
+Linux Docker images are available for you to use, so you can run the
+R-hub Linux builders locally.</p>
+<p><strong>Warning: at the moment, the functions are not tested on
+Windows! Bug reports are welcome :-)</strong></p>
 </div>
 <div id="install-and-get-to-know-docker" class="section level2">
 <h2>Install and get to know Docker</h2>
-<p>To be able to use the feature, you will need to install Docker. Please refer to <a href="https://docs.docker.com/install/">Docker docs</a>. On Windows, installation might be trickier, check that your machine <a href="https://docs.docker.com/docker-for-windows/install/#what-to-know-before-you-install">meets the system requirements</a>. On Linux, make sure to <a href="https://docs.docker.com/install/linux/linux-postinstall/">run the post-installation steps</a> to make the <code>docker</code> command available to your user without the <code>sudo</code> prefix.</p>
-<p>If you are new to Docker, for the basic use shown in the next two sections you don’t need to learn anything, you won’t have to leave R. Nonetheless, if you’re curious, this tutorial <a href="https://ropenscilabs.github.io/r-docker-tutorial/01-what-and-why.html">features a nice introduction</a>. Also see <a href="https://colinfay.me/docker-r-reproducibility/">this blog post</a> and the list of resources it shows at the end.</p>
+<p>To be able to use the feature, you will need to install Docker.
+Please refer to <a href="https://docs.docker.com/install/">Docker
+docs</a>. On Windows, installation might be trickier, check that your
+machine <a href="https://docs.docker.com/docker-for-windows/install/#what-to-know-before-you-install">meets
+the system requirements</a>. On Linux, make sure to <a href="https://docs.docker.com/install/linux/linux-postinstall/">run the
+post-installation steps</a> to make the <code>docker</code> command
+available to your user without the <code>sudo</code> prefix.</p>
+<p>If you are new to Docker, for the basic use shown in the next two
+sections you don’t need to learn anything, you won’t have to leave R.
+Nonetheless, if you’re curious, this tutorial <a href="https://jsta.github.io/r-docker-tutorial/01-what-and-why.html">features
+a nice introduction</a>. Also see <a href="https://colinfay.me/docker-r-reproducibility/">this blog post</a>
+and the list of resources it shows at the end.</p>
 </div>
 <div id="list-r-hub-linux-images" class="section level2">
 <h2>List R-hub Linux images</h2>
-<p>Each of R-hub Linux platforms is associated to a Docker image, whose Dockerfile is stored in the <a href="https://github.com/r-hub/rhub-linux-builders#rhub-linux-builders">r-hub/rhub-linux-builders repository</a>, and that is built and available on Docker Hub. Note, if you’re used to using Docker images outside of R, you might want to just refer to the information in <a href="https://github.com/r-hub/rhub-linux-builders#rhub-linux-builders">R-hub Linux Docker images GitHub repository</a> (including links to the built images on Docker Hub). The advantage of using the rhub package instead of Docker directly, is that the package will install the system requirements properly.</p>
-<p>To list the available images from R, you can use the <code>local_check_linux_images()</code> function that returns a <code>data.frame</code> and has a pretty default printing.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">imgs &lt;-<span class="st"> </span><span class="kw">local_check_linux_images</span>()</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">imgs</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; rhub/debian-gcc-devel:</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt;   Debian Linux, R-devel, GCC</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; rhub/debian-gcc-patched:</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt;   Debian Linux, R-patched, GCC</span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; rhub/debian-gcc-release:</span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt;   Debian Linux, R-release, GCC</span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; rhub/fedora-clang-devel:</span></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt;   Fedora Linux, R-devel, clang, gfortran</span></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt; rhub/fedora-gcc-devel:</span></a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt;   Fedora Linux, R-devel, GCC</span></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt; rhub/centos6-epel:</span></a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt;   CentOS 6, stock R from EPEL</span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; rhub/centos6-epel-rdt:</span></a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt;   CentOS 6 with Redhat Developer Toolset, R from EPEL</span></a>
-<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt; rhub/rocker-gcc-san:</span></a>
-<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt;   Debian Linux, R-devel, GCC ASAN/UBSAN</span></a>
-<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">#&gt; rhub/ubuntu-gcc-devel:</span></a>
-<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="co">#&gt;   Ubuntu Linux 16.04 LTS, R-devel, GCC</span></a>
-<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="co">#&gt; rhub/ubuntu-gcc-release:</span></a>
-<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="co">#&gt;   Ubuntu Linux 16.04 LTS, R-release, GCC</span></a>
-<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="co">#&gt; rhub/ubuntu-rchk:</span></a>
-<a class="sourceLine" id="cb2-24" data-line-number="24"><span class="co">#&gt;   Ubuntu Linux 16.04 LTS, R-devel with rchk</span></a>
-<a class="sourceLine" id="cb2-25" data-line-number="25">knitr<span class="op">::</span><span class="kw">kable</span>(imgs, <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<p>Each of R-hub Linux platforms is associated to a Docker image, whose
+Dockerfile is stored in the <a href="https://github.com/r-hub/rhub-linux-builders#rhub-linux-builders">r-hub/rhub-linux-builders
+repository</a>, and that is built and available on Docker Hub. Note, if
+you’re used to using Docker images outside of R, you might want to just
+refer to the information in <a href="https://github.com/r-hub/rhub-linux-builders#rhub-linux-builders">R-hub
+Linux Docker images GitHub repository</a> (including links to the built
+images on Docker Hub). The advantage of using the rhub package instead
+of Docker directly, is that the package will install the system
+requirements properly.</p>
+<p>To list the available images from R, you can use the
+<code>local_check_linux_images()</code> function that returns a
+<code>data.frame</code> and has a pretty default printing.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>imgs <span class="ot">&lt;-</span> <span class="fu">local_check_linux_images</span>()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>imgs</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rhub/debian-clang-devel:</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Debian Linux, R-devel, clang, ISO-8859-15 locale</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rhub/debian-gcc-devel:</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Debian Linux, R-devel, GCC</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rhub/debian-gcc-devel-nold:</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Debian Linux, R-devel, GCC, no long double</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rhub/debian-gcc-patched:</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Debian Linux, R-patched, GCC</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rhub/debian-gcc-release:</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Debian Linux, R-release, GCC</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rhub/fedora-clang-devel:</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Fedora Linux, R-devel, clang, gfortran</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rhub/fedora-gcc-devel:</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Fedora Linux, R-devel, GCC</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rhub/rocker-gcc-san:</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Debian Linux, R-devel, GCC ASAN/UBSAN</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rhub/ubuntu-gcc-devel:</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Ubuntu Linux 20.04.1 LTS, R-devel, GCC</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rhub/ubuntu-gcc-release:</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Ubuntu Linux 20.04.1 LTS, R-release, GCC</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rhub/ubuntu-rchk:</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Ubuntu Linux 20.04.1 LTS, R-devel with rchk</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(imgs, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <table>
+<colgroup>
+<col width="8%" />
+<col width="14%" />
+<col width="10%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="7%" />
+<col width="13%" />
+<col width="6%" />
+<col width="7%" />
+<col width="7%" />
+<col width="3%" />
+<col width="1%" />
+<col width="4%" />
+<col width="4%" />
+<col width="2%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">name</th>
@@ -357,12 +442,32 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <th align="left">sysreqs-platform</th>
 <th align="left">categories</th>
 <th align="left">node-labels</th>
+<th align="left">queue</th>
 <th align="left">output-parser</th>
 <th align="left">macos-version</th>
+<th align="left">params</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
+<td align="left">debian-clang-devel</td>
+<td align="left">Debian Linux, R-devel, clang, ISO-8859-15 locale</td>
+<td align="left">r-devel-linux-x86_64-debian-clang</td>
+<td align="left">r-devel</td>
+<td align="left">Linux</td>
+<td align="left">x86_64</td>
+<td align="left">Debian GNU/Linux testing</td>
+<td align="left">Debian clang version 11.0.1-2</td>
+<td align="left">debian-clang-devel</td>
+<td align="left">linux-x86_64-debian-clang</td>
+<td align="left">Linux</td>
+<td align="left">linux</td>
+<td align="left">linux</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
 <td align="left">debian-gcc-devel</td>
 <td align="left">Debian Linux, R-devel, GCC</td>
 <td align="left">r-devel-linux-x86_64-debian-gcc</td>
@@ -370,11 +475,31 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <td align="left">Linux</td>
 <td align="left">x86_64</td>
 <td align="left">Debian GNU/Linux testing</td>
-<td align="left">GCC 6.2.0 (Debian 6.2.0-6)</td>
+<td align="left">gcc (Debian 10.2.1-6) 10.2.1 20210110</td>
 <td align="left">debian-gcc-devel</td>
 <td align="left">linux-x86_64-debian-gcc</td>
 <td align="left">Linux</td>
 <td align="left">linux</td>
+<td align="left">linux</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">debian-gcc-devel-nold</td>
+<td align="left">Debian Linux, R-devel, GCC, no long double</td>
+<td align="left">NA</td>
+<td align="left">r-devel</td>
+<td align="left">Linux</td>
+<td align="left">x86_64</td>
+<td align="left">Debian GNU/Linux testing</td>
+<td align="left">gcc (Debian 10.2.1-6) 10.2.1 20210110</td>
+<td align="left">debian-gcc-devel-nold</td>
+<td align="left">linux-x86_64-debian-gcc</td>
+<td align="left">Linux</td>
+<td align="left">linux</td>
+<td align="left">linux</td>
+<td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
@@ -386,11 +511,13 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <td align="left">Linux</td>
 <td align="left">x86_64</td>
 <td align="left">Debian GNU/Linux testing</td>
-<td align="left">GCC 6.2.0 (Debian 6.2.0-6)</td>
+<td align="left">gcc (Debian 10.2.1-6) 10.2.1 20210110</td>
 <td align="left">debian-gcc-patched</td>
 <td align="left">linux-x86_64-debian-gcc</td>
 <td align="left">Linux</td>
 <td align="left">linux</td>
+<td align="left">linux</td>
+<td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
@@ -402,11 +529,13 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <td align="left">Linux</td>
 <td align="left">x86_64</td>
 <td align="left">Debian GNU/Linux testing</td>
-<td align="left">GCC 6.2.0 (Debian 6.2.0-6)</td>
+<td align="left">gcc (Debian 10.2.1-6) 10.2.1 20210110</td>
 <td align="left">debian-gcc-release</td>
 <td align="left">linux-x86_64-debian-gcc</td>
 <td align="left">Linux</td>
 <td align="left">linux</td>
+<td align="left">linux</td>
+<td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
@@ -417,12 +546,14 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <td align="left">r-devel</td>
 <td align="left">Linux</td>
 <td align="left">x86_64</td>
-<td align="left">Fedora 24</td>
-<td align="left">clang version 3.8.0; GNU Fortran 6.1.1</td>
+<td align="left">Fedora 33</td>
+<td align="left">clang version 11.0.0 (Fedora 11.0.0-2.fc33)</td>
 <td align="left">fedora-clang-devel</td>
 <td align="left">linux-x86_64-fedora-clang</td>
 <td align="left">Linux</td>
 <td align="left">linux</td>
+<td align="left">linux</td>
+<td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
@@ -433,44 +564,14 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <td align="left">r-devel</td>
 <td align="left">Linux</td>
 <td align="left">x86_64</td>
-<td align="left">Fedora 24</td>
-<td align="left">GCC 6.1.1</td>
+<td align="left">Fedora 33</td>
+<td align="left">gcc (GCC) 10.2.1 20201125 (Red Hat 10.2.1-9)</td>
 <td align="left">fedora-gcc-devel</td>
 <td align="left">linux-x86_64-fedora-gcc</td>
 <td align="left">Linux</td>
 <td align="left">linux</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-</tr>
-<tr class="even">
-<td align="left">linux-x86_64-centos6-epel</td>
-<td align="left">CentOS 6, stock R from EPEL</td>
-<td align="left">NA</td>
-<td align="left">r-release</td>
-<td align="left">Linux</td>
-<td align="left">x86_64</td>
-<td align="left">CentOS 6</td>
-<td align="left">GCC 4.4.x</td>
-<td align="left">centos6-epel</td>
-<td align="left">linux-x86_64-centos6-epel</td>
-<td align="left">Linux</td>
 <td align="left">linux</td>
 <td align="left">NA</td>
-<td align="left">NA</td>
-</tr>
-<tr class="odd">
-<td align="left">linux-x86_64-centos6-epel-rdt</td>
-<td align="left">CentOS 6 with Redhat Developer Toolset, R from EPEL</td>
-<td align="left">NA</td>
-<td align="left">r-release</td>
-<td align="left">Linux</td>
-<td align="left">x86_64</td>
-<td align="left">CentOS 6</td>
-<td align="left">GCC 5.2.1</td>
-<td align="left">centos6-epel-rdt</td>
-<td align="left">linux-x86_64-centos6-epel</td>
-<td align="left">Linux</td>
-<td align="left">linux</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
@@ -487,88 +588,124 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <td align="left">linux-x86_64-debian-gcc</td>
 <td align="left">Checks for compiled code</td>
 <td align="left">linux</td>
+<td align="left">linux</td>
 <td align="left">sanitizers</td>
+<td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
 <tr class="odd">
 <td align="left">ubuntu-gcc-devel</td>
-<td align="left">Ubuntu Linux 16.04 LTS, R-devel, GCC</td>
+<td align="left">Ubuntu Linux 20.04.1 LTS, R-devel, GCC</td>
 <td align="left">NA</td>
 <td align="left">r-devel</td>
 <td align="left">Linux</td>
 <td align="left">x86_64</td>
-<td align="left">Ubuntu 16.04 LTS</td>
-<td align="left">GCC 5.3.1</td>
+<td align="left">Ubuntu 20.04.1 LTS</td>
+<td align="left">gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0</td>
 <td align="left">ubuntu-gcc-devel</td>
 <td align="left">linux-x86_64-ubuntu-gcc</td>
 <td align="left">Linux</td>
 <td align="left">linux</td>
+<td align="left">linux</td>
+<td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
 <tr class="even">
 <td align="left">ubuntu-gcc-release</td>
-<td align="left">Ubuntu Linux 16.04 LTS, R-release, GCC</td>
+<td align="left">Ubuntu Linux 20.04.1 LTS, R-release, GCC</td>
 <td align="left">NA</td>
 <td align="left">r-release</td>
 <td align="left">Linux</td>
 <td align="left">x86_64</td>
-<td align="left">Ubuntu 16.04 LTS</td>
-<td align="left">GCC 5.3.1</td>
+<td align="left">Ubuntu 20.04.1 LTS</td>
+<td align="left">gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0</td>
 <td align="left">ubuntu-gcc-release</td>
 <td align="left">linux-x86_64-ubuntu-gcc</td>
 <td align="left">Linux</td>
 <td align="left">linux</td>
+<td align="left">linux</td>
+<td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
 <tr class="odd">
 <td align="left">ubuntu-rchk</td>
-<td align="left">Ubuntu Linux 16.04 LTS, R-devel with rchk</td>
+<td align="left">Ubuntu Linux 20.04.1 LTS, R-devel with rchk</td>
 <td align="left">NA</td>
 <td align="left">r-devel</td>
 <td align="left">Linux</td>
 <td align="left">x86_64</td>
-<td align="left">Ubuntu 16.04 LTS</td>
-<td align="left">clang 3.8.0-2ubuntu4</td>
+<td align="left">Ubuntu 20.04.1 LTS</td>
+<td align="left">clang version 12.0.0-3ubuntu1~20.04.5</td>
 <td align="left">ubuntu-rchk</td>
 <td align="left">linux-x86_64-ubuntu-gcc</td>
 <td align="left">Checks for compiled code</td>
 <td align="left">linux</td>
+<td align="left">linux</td>
 <td align="left">rchk</td>
+<td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
 </tbody>
 </table>
 <p>Of particular interest are</p>
 <ul>
-<li><p>the <code>cranname</code> columns if you’re trying to find an equivalent to a CRAN platform;</p></li>
-<li><p>the <code>name</code> platform which is the ID you should use to select that platform.</p></li>
+<li><p>the <code>cranname</code> columns if you’re trying to find an
+equivalent to a CRAN platform;</p></li>
+<li><p>the <code>name</code> platform which is the ID you should use to
+select that platform.</p></li>
 </ul>
-<p>In theory, you could also use images that are not listed in the list above, e.g. your own Docker images.</p>
+<p>In theory, you could also use images that are not listed in the list
+above, e.g. your own Docker images.</p>
 </div>
 <div id="run-local-checks" class="section level2">
 <h2>Run local checks</h2>
-<p>Below we’ll start a check of a package on the “rhub/debian-gcc-release” image (Debian Linux, R-release, GCC). The first time you use an image on your machine, it’ll be downloaded from Docker Hub, which might take a while. The image won’t be deleted after use, so next time will be faster until you clean up your machine’s Docker images, which one should do once in a while (note that R-hub images are regularly updated).</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">pkg_path &lt;-<span class="st"> &quot;/home/maelle/Documents/R-hub/test-packages/note&quot;</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">local_check_linux</span>(pkg_path, <span class="dt">image =</span> <span class="st">&quot;rhub/debian-gcc-release&quot;</span>)</a></code></pre></div>
-<p>You can either just run the check as shown above, which will print a log to the screen, including <code>R CMD check</code> results in the end, or assign it to an object:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">pkg_path &lt;-<span class="st"> &quot;/home/maelle/Documents/R-hub/test-packages/note&quot;</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">chk &lt;-<span class="st"> </span><span class="kw">local_check_linux</span>(pkg_path, <span class="dt">image =</span> <span class="st">&quot;rhub/debian-gcc-release&quot;</span>)</a></code></pre></div>
-<p>The object returned is of the class <code>rcmdcheck::rcmdcheck</code> which is an S3 object with fields <code>errors</code>, <code>warnings</code> and <code>notes</code> (character vectors), that you could operate on if you wish.</p>
-<p>The <code>local_check_linux()</code> function creates a container (instance of the image) that won’t be deleted after use so you might want to clean up once in a while.</p>
+<p>Below we’ll start a check of a package on the
+“rhub/debian-gcc-release” image (Debian Linux, R-release, GCC). The
+first time you use an image on your machine, it’ll be downloaded from
+Docker Hub, which might take a while. The image won’t be deleted after
+use, so next time will be faster until you clean up your machine’s
+Docker images, which one should do once in a while (note that R-hub
+images are regularly updated).</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pkg_path <span class="ot">&lt;-</span> <span class="st">&quot;/home/maelle/Documents/R-hub/test-packages/note&quot;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">local_check_linux</span>(pkg_path, <span class="at">image =</span> <span class="st">&quot;rhub/debian-gcc-release&quot;</span>)</span></code></pre></div>
+<p>You can either just run the check as shown above, which will print a
+log to the screen, including <code>R CMD check</code> results in the
+end, or assign it to an object:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pkg_path <span class="ot">&lt;-</span> <span class="st">&quot;/home/maelle/Documents/R-hub/test-packages/note&quot;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>chk <span class="ot">&lt;-</span> <span class="fu">local_check_linux</span>(pkg_path, <span class="at">image =</span> <span class="st">&quot;rhub/debian-gcc-release&quot;</span>)</span></code></pre></div>
+<p>The object returned is of the class <code>rcmdcheck::rcmdcheck</code>
+which is an S3 object with fields <code>errors</code>,
+<code>warnings</code> and <code>notes</code> (character vectors), that
+you could operate on if you wish.</p>
+<p>The <code>local_check_linux()</code> function creates a container
+(instance of the image) that won’t be deleted after use so you might
+want to clean up once in a while.</p>
 </div>
 <div id="do-more-with-r-hub-linux-images" class="section level2">
 <h2>Do more with R-hub Linux images</h2>
-<p>If running checks in images iteratively isn’t enough for your debugging, you might want to run the container created by <code>local_check_linux()</code>. Take note of the container name and run (in a shell, not in R)</p>
+<p>If running checks in images iteratively isn’t enough for your
+debugging, you might want to run the container created by
+<code>local_check_linux()</code>. Take note of the container name and
+run (in a shell, not in R)</p>
 <pre><code>docker container start 7181196d-bc3c-4fc8-a0e8-dc511150335d-2
 docker exec -it 7181196d-bc3c-4fc8-a0e8-dc511150335d-2 bash</code></pre>
-<p>where <code>7181196d-bc3c-4fc8-a0e8-dc511150335d-2</code> is the container name, this is printed out by <code>local_check_linux()</code>. After running these commands, you will get a shell within the Docker container, where you can run R. Note that on some containers R is installed in <code>/opt/</code>.</p>
-<p>For more information, you may want to look at the shell script that <code>rhub</code> uses to set up the container for running the check. To find it, run the code below.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">system.file</span>(<span class="dt">package =</span> <span class="st">&quot;rhub&quot;</span>, <span class="st">&quot;bin&quot;</span>, <span class="st">&quot;rhub-linux-docker.sh&quot;</span>)</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#&gt; [1] &quot;/private/var/folders/59/0gkmw1yj2w7bf2dfc3jznv5w0000gn/T/RtmpxYb30u/Rinst991a5f754d43/rhub/bin/rhub-linux-docker.sh&quot;</span></a></code></pre></div>
+<p>where <code>7181196d-bc3c-4fc8-a0e8-dc511150335d-2</code> is the
+container name, this is printed out by <code>local_check_linux()</code>.
+After running these commands, you will get a shell within the Docker
+container, where you can run R. Note that on some containers R is
+installed in <code>/opt/</code>.</p>
+<p>For more information, you may want to look at the shell script that
+<code>rhub</code> uses to set up the container for running the check. To
+find it, run the code below.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.file</span>(<span class="at">package =</span> <span class="st">&quot;rhub&quot;</span>, <span class="st">&quot;bin&quot;</span>, <span class="st">&quot;rhub-linux-docker.sh&quot;</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;/private/var/folders/ph/fpcmzfd16rgbbk8mxvy9m2_h0000gn/T/RtmpR8pQbr/Rinst162c461be2f68/rhub/bin/rhub-linux-docker.sh&quot;</span></span></code></pre></div>
 </div>
 
+
+
+<!-- code folding -->
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

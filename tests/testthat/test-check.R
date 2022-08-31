@@ -14,7 +14,7 @@ test_that("check", {
       list(list(id = "foobar"))
     },
     `rhub:::match_platform` = function(x) x,
-    check(pkg_targz, email = "e", platform = "p", show_status = FALSE)
+    check(pkg_targz, email = "e", platforms = "p", show_status = FALSE)
   )
 
   expect_equal(sub[[1]], "e")
@@ -24,7 +24,7 @@ test_that("check", {
 
 test_that("check shortcuts", {
   with_mock(
-    `rhub::check` = function(path = ".", platform, ...) platform,
+    `rhub::check` = function(path = ".", platforms, ...) platforms,
     expect_equal(check_on_linux(), check_shortcut_platforms$linux),
     expect_equal(check_on_windows(), check_shortcut_platforms$windows),
 
@@ -42,5 +42,26 @@ test_that("check shortcuts", {
       check_with_sanitizers(),
       check_shortcut_platforms$sanitizers
     )
+  )
+})
+
+test_that("get_check", {
+  package_data$ids <- character()
+  package_data$groups <- character()
+  expect_error(
+    get_check("foo"),
+    "Short check id 'foo' can only be used for cached ids",
+    fixed = TRUE
+  )
+  expect_error(
+    get_check(c("foo", "bar")),
+    "Short check id 'foo' (and 1 more) can only be used for cached ids",
+    fixed = TRUE
+  )
+  real <- "rversions_2.1.1.9000.tar.gz-73d9f48a0ede4deeac27fb9910be2a02"
+  expect_error(
+    get_check(c("foo", "bar", real)),
+    "Short check id 'foo' (and 1 more) can only be used for cached ids",
+    fixed = TRUE
   )
 })
