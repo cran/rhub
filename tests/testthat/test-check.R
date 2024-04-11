@@ -1,67 +1,41 @@
-
-context("check")
-
-test_that("check", {
-  pkg <- create_minimal_package()
-
-  ## From tarball
-  pkg_targz <- build_package(pkg, tempfile())
-  sub <- NULL
-  ch <- with_mock(
-    `rhub::assert_validated_email_for_check` = function(...) TRUE,
-    `rhub::submit_package` = function(...) {
-      sub <<- list(...)
-      list(list(id = "foobar"))
-    },
-    `rhub:::match_platform` = function(x) x,
-    check(pkg_targz, email = "e", platforms = "p", show_status = FALSE)
+test_that("rhub_check", {
+  withr::local_envvar(
+    RHUB_PLATFORMS_URL = http$url("/platforms.json"),
+    RHUB_CONTAINERS_URL = http$url("/manifest.json")
   )
 
-  expect_equal(sub[[1]], "e")
-  expect_equal(sub[[3]], "p")
-  expect_equal(sub[[4]], character())
-})
+  mockery::stub(rhub_check, "doctor_find_pat", "secret")
 
-test_that("check shortcuts", {
-  with_mock(
-    `rhub::check` = function(path = ".", platforms, ...) platforms,
-    expect_equal(check_on_linux(), check_shortcut_platforms$linux),
-    expect_equal(check_on_windows(), check_shortcut_platforms$windows),
-
-    expect_equal(check_on_debian(), check_shortcut_platforms$debian),
-    expect_equal(check_on_ubuntu(), check_shortcut_platforms$ubuntu),
-    expect_equal(check_on_fedora(), check_shortcut_platforms$fedora),
-
-    expect_equal(check_with_roldrel(), check_shortcut_platforms$roldrel),
-    expect_equal(check_with_rrelease(), check_shortcut_platforms$rrelease),
-    expect_equal(check_with_rpatched(), check_shortcut_platforms$rpatched),
-    expect_equal(check_with_rdevel(), check_shortcut_platforms$rdevel),
-
-    expect_equal(check_with_valgrind(), check_shortcut_platforms$valgrind),
-    expect_equal(
-      check_with_sanitizers(),
-      check_shortcut_platforms$sanitizers
+  presp <- gh_query_process_response(
+    readRDS(test_path("fixtures/gh-response-post.rds"))
+  )
+  mockery::stub(rhub_check, "gh_rest_post", presp)
+  mockery::stub(rhub_check, "random_id", "kleptomaniac-harlequinbug")
+  expect_snapshot({
+    rhub_check(
+      "https://github.com/r-lib/ps",
+      platforms = c("linux", "clang18")
     )
-  )
-})
+  })
 
-test_that("get_check", {
-  package_data$ids <- character()
-  package_data$groups <- character()
-  expect_error(
-    get_check("foo"),
-    "Short check id 'foo' can only be used for cached ids",
-    fixed = TRUE
-  )
-  expect_error(
-    get_check(c("foo", "bar")),
-    "Short check id 'foo' (and 1 more) can only be used for cached ids",
-    fixed = TRUE
-  )
-  real <- "rversions_2.1.1.9000.tar.gz-73d9f48a0ede4deeac27fb9910be2a02"
-  expect_error(
-    get_check(c("foo", "bar", real)),
-    "Short check id 'foo' (and 1 more) can only be used for cached ids",
-    fixed = TRUE
-  )
+  # error
+  presp$status_code <- 401L
+  presp$content <- list(message = "I am so, so sorry!")
+  mockery::stub(rhub_check, "gh_rest_post", presp)
+  expect_snapshot(error = TRUE, {
+    rhub_check(
+      "https://github.com/r-lib/ps",
+      platforms = c("linux", "clang18")
+    )
+  })
+
+  # looks up current branch if it is needed
+  presp$status_code <- 204L
+  mockery::stub(rhub_check, "gh_rest_post", presp)
+  mockery::stub(rhub_check, "setup_find_git_root", getwd())
+  mockery::stub(rhub_check, "doctor_find_gh_url", "https://github.com/r-lib/ps")
+  mockery::stub(rhub_check, "gert::git_branch", "main")
+  expect_snapshot({
+    rhub_check(platforms = c("linux", "clang18"))
+  })
 })

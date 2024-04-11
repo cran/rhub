@@ -1,0 +1,252 @@
+{
+  "updated": "2024-04-09 06:45:24",
+  "containers": [
+    {
+      "tag": "ghcr.io/r-hub/containers/atlas:latest",
+      "builds": [
+        {
+          "tag": "ghcr.io/r-hub/containers/atlas:latest",
+          "id": "ghcr.io/r-hub/containers/atlas@sha256:73712127ae04572054645364f1751207654803d30d14db26d2f2ce97a0c637cf",
+          "size": 1578504864,
+          "created": "2024-04-09T06:12:37.255431954Z",
+          "/etc/os-release": "NAME=\"Fedora Linux\"\nVERSION=\"38 (Container Image)\"\nID=fedora\nVERSION_ID=38\nVERSION_CODENAME=\"\"\nPLATFORM_ID=\"platform:f38\"\nPRETTY_NAME=\"Fedora Linux 38 (Container Image)\"\nANSI_COLOR=\"0;38;2;60;110;180\"\nLOGO=fedora-logo-icon\nCPE_NAME=\"cpe:/o:fedoraproject:fedora:38\"\nDEFAULT_HOSTNAME=\"fedora\"\nHOME_URL=\"https://fedoraproject.org/\"\nDOCUMENTATION_URL=\"https://docs.fedoraproject.org/en-US/fedora/f38/system-administrators-guide/\"\nSUPPORT_URL=\"https://ask.fedoraproject.org/\"\nBUG_REPORT_URL=\"https://bugzilla.redhat.com/\"\nREDHAT_BUGZILLA_PRODUCT=\"Fedora\"\nREDHAT_BUGZILLA_PRODUCT_VERSION=38\nREDHAT_SUPPORT_PRODUCT=\"Fedora\"\nREDHAT_SUPPORT_PRODUCT_VERSION=38\nSUPPORT_END=2024-05-14\nVARIANT=\"Container Image\"\nVARIANT_ID=container\n",
+          "uname -a": "Linux 2b4494639b7d 6.5.0-1017-azure #17~22.04.1-Ubuntu SMP Sat Mar  9 04:50:38 UTC 2024 x86_64 GNU/Linux",
+          "sessionInfo()": "R Under development (unstable) (2024-04-08 r86370)\nPlatform: x86_64-pc-linux-gnu\nRunning under: Fedora Linux 38 (Container Image)\n\nMatrix products: default\nBLAS/LAPACK: /usr/lib64/atlas/libsatlas.so.3.10;  LAPACK version 3.11.0\n\nlocale:\n [1] LC_CTYPE=en_GB.UTF-8       LC_NUMERIC=C              \n [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=en_GB.UTF-8    \n [5] LC_MONETARY=en_GB.UTF-8    LC_MESSAGES=en_GB.UTF-8   \n [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C                 \n [9] LC_ADDRESS=C               LC_TELEPHONE=C            \n[11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C       \n\ntime zone: Etc/UTC\ntzcode source: system (glibc)\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n[1] compiler_4.5.0\n"
+        }
+      ]
+    },
+    {
+      "tag": "ghcr.io/r-hub/containers/centos7:latest",
+      "builds": [
+        {
+          "tag": "ghcr.io/r-hub/containers/centos7:latest",
+          "id": "ghcr.io/r-hub/containers/centos7@sha256:e1696fae6bb2bb8a29e97ebcd6c5a700b7bd29afc4fe31ec89162e991ecd5198",
+          "size": 2397242127,
+          "created": "2024-04-09T06:14:01.814230204Z",
+          "/etc/os-release": "NAME=\"CentOS Linux\"\nVERSION=\"7 (Core)\"\nID=\"centos\"\nID_LIKE=\"rhel fedora\"\nVERSION_ID=\"7\"\nPRETTY_NAME=\"CentOS Linux 7 (Core)\"\nANSI_COLOR=\"0;31\"\nCPE_NAME=\"cpe:/o:centos:centos:7\"\nHOME_URL=\"https://www.centos.org/\"\nBUG_REPORT_URL=\"https://bugs.centos.org/\"\n\nCENTOS_MANTISBT_PROJECT=\"CentOS-7\"\nCENTOS_MANTISBT_PROJECT_VERSION=\"7\"\nREDHAT_SUPPORT_PRODUCT=\"centos\"\nREDHAT_SUPPORT_PRODUCT_VERSION=\"7\"\n\n",
+          "uname -a": "Linux 5251f7226e27 6.5.0-1017-azure #17~22.04.1-Ubuntu SMP Sat Mar  9 04:50:38 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux",
+          "sessionInfo()": "R version 4.4.0 alpha (2024-04-08 r86370)\nPlatform: x86_64-pc-linux-gnu\nRunning under: CentOS Linux 7 (Core)\n\nMatrix products: default\nBLAS/LAPACK: /usr/lib64/libopenblasp-r0.3.3.so;  LAPACK version 3.8.0\n\nlocale:\n [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              \n [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    \n [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   \n [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 \n [9] LC_ADDRESS=C               LC_TELEPHONE=C            \n[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       \n\ntime zone: UTC\ntzcode source: system (glibc)\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n[1] compiler_4.4.0\n"
+        }
+      ]
+    },
+    {
+      "tag": "ghcr.io/r-hub/containers/clang-asan:latest",
+      "builds": [
+        {
+          "tag": "ghcr.io/r-hub/containers/clang-asan:latest",
+          "id": "ghcr.io/r-hub/containers/clang-asan@sha256:830c2567561ffbc0af80f10d173442d81fc6f1f6ae29a9bc11145dda1d659fe2",
+          "size": 2840842353,
+          "created": "2024-04-09T06:12:55.880961968Z",
+          "/etc/os-release": "PRETTY_NAME=\"Ubuntu 22.04.4 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"22.04\"\nVERSION=\"22.04.4 LTS (Jammy Jellyfish)\"\nVERSION_CODENAME=jammy\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=jammy\n",
+          "uname -a": "Linux e331221f2aa7 6.5.0-1017-azure #17~22.04.1-Ubuntu SMP Sat Mar  9 04:50:38 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux",
+          "sessionInfo()": "R Under development (unstable) (2024-04-08 r86370)\nPlatform: x86_64-pc-linux-gnu\nRunning under: Ubuntu 22.04.4 LTS\n\nMatrix products: default\nBLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 \nLAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0\n\nlocale:\n [1] LC_CTYPE=en_GB.UTF-8       LC_NUMERIC=C              \n [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=C              \n [5] LC_MONETARY=en_GB.UTF-8    LC_MESSAGES=en_GB.UTF-8   \n [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C                 \n [9] LC_ADDRESS=C               LC_TELEPHONE=C            \n[11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C       \n\ntime zone: Etc/UTC\ntzcode source: system (glibc)\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n[1] compiler_4.5.0\n"
+        }
+      ]
+    },
+    {
+      "tag": "ghcr.io/r-hub/containers/clang16:latest",
+      "builds": [
+        {
+          "tag": "ghcr.io/r-hub/containers/clang16:latest",
+          "id": "ghcr.io/r-hub/containers/clang16@sha256:bbeefb96a170c9586336e557bb12d629485724688cc9f0243700ebd2d847a8b7",
+          "size": 2027913227,
+          "created": "2024-04-09T06:13:13.151212646Z",
+          "/etc/os-release": "PRETTY_NAME=\"Ubuntu 22.04.4 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"22.04\"\nVERSION=\"22.04.4 LTS (Jammy Jellyfish)\"\nVERSION_CODENAME=jammy\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=jammy\n",
+          "uname -a": "Linux ced42ddabb38 6.5.0-1017-azure #17~22.04.1-Ubuntu SMP Sat Mar  9 04:50:38 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux",
+          "sessionInfo()": "R Under development (unstable) (2024-04-06 r86351)\nPlatform: x86_64-pc-linux-gnu\nRunning under: Ubuntu 22.04.4 LTS\n\nMatrix products: default\nBLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 \nLAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0\n\nlocale:\n [1] LC_CTYPE=en_GB.UTF-8       LC_NUMERIC=C              \n [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=en_GB.UTF-8    \n [5] LC_MONETARY=en_GB.UTF-8    LC_MESSAGES=en_GB.UTF-8   \n [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C                 \n [9] LC_ADDRESS=C               LC_TELEPHONE=C            \n[11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C       \n\ntime zone: Etc/UTC\ntzcode source: system (glibc)\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n[1] compiler_4.5.0\n"
+        }
+      ]
+    },
+    {
+      "tag": "ghcr.io/r-hub/containers/gcc13:latest",
+      "builds": [
+        {
+          "tag": "ghcr.io/r-hub/containers/gcc13:latest",
+          "id": "ghcr.io/r-hub/containers/gcc13@sha256:a82f19afc006347129a47764ba28029dcb3fb2dfdc871452808065dd1e303f98",
+          "size": 1484164831,
+          "created": "2024-04-09T06:14:04.791818391Z",
+          "/etc/os-release": "NAME=\"Fedora Linux\"\nVERSION=\"38 (Container Image)\"\nID=fedora\nVERSION_ID=38\nVERSION_CODENAME=\"\"\nPLATFORM_ID=\"platform:f38\"\nPRETTY_NAME=\"Fedora Linux 38 (Container Image)\"\nANSI_COLOR=\"0;38;2;60;110;180\"\nLOGO=fedora-logo-icon\nCPE_NAME=\"cpe:/o:fedoraproject:fedora:38\"\nDEFAULT_HOSTNAME=\"fedora\"\nHOME_URL=\"https://fedoraproject.org/\"\nDOCUMENTATION_URL=\"https://docs.fedoraproject.org/en-US/fedora/f38/system-administrators-guide/\"\nSUPPORT_URL=\"https://ask.fedoraproject.org/\"\nBUG_REPORT_URL=\"https://bugzilla.redhat.com/\"\nREDHAT_BUGZILLA_PRODUCT=\"Fedora\"\nREDHAT_BUGZILLA_PRODUCT_VERSION=38\nREDHAT_SUPPORT_PRODUCT=\"Fedora\"\nREDHAT_SUPPORT_PRODUCT_VERSION=38\nSUPPORT_END=2024-05-14\nVARIANT=\"Container Image\"\nVARIANT_ID=container\n",
+          "uname -a": "Linux c93de595a41d 6.5.0-1017-azure #17~22.04.1-Ubuntu SMP Sat Mar  9 04:50:38 UTC 2024 x86_64 GNU/Linux",
+          "sessionInfo()": "R Under development (unstable) (2024-04-08 r86370)\nPlatform: x86_64-pc-linux-gnu\nRunning under: Fedora Linux 38 (Container Image)\n\nMatrix products: default\nBLAS/LAPACK: /usr/lib64/libopenblasp-r0.3.21.so;  LAPACK version 3.9.0\n\nlocale:\n [1] LC_CTYPE=en_GB.UTF-8       LC_NUMERIC=C              \n [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=en_GB.UTF-8    \n [5] LC_MONETARY=en_GB.UTF-8    LC_MESSAGES=en_GB.UTF-8   \n [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C                 \n [9] LC_ADDRESS=C               LC_TELEPHONE=C            \n[11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C       \n\ntime zone: Etc/UTC\ntzcode source: system (glibc)\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n[1] compiler_4.5.0\n"
+        }
+      ]
+    },
+    {
+      "tag": "ghcr.io/r-hub/containers/nold:latest",
+      "builds": [
+        {
+          "tag": "ghcr.io/r-hub/containers/nold:latest",
+          "id": "ghcr.io/r-hub/containers/nold@sha256:11a8b83aea1357836bd71145af72a532350ac3a7ece7454f9423b09d91796228",
+          "size": 862279216,
+          "created": "2024-04-09T06:12:12.256536782Z",
+          "/etc/os-release": "PRETTY_NAME=\"Ubuntu 22.04.4 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"22.04\"\nVERSION=\"22.04.4 LTS (Jammy Jellyfish)\"\nVERSION_CODENAME=jammy\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=jammy\n",
+          "uname -a": "Linux 9d280b3dde4b 6.5.0-1017-azure #17~22.04.1-Ubuntu SMP Sat Mar  9 04:50:38 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux",
+          "sessionInfo()": "R Under development (unstable) (2024-04-08 r86370)\nPlatform: x86_64-pc-linux-gnu\nRunning under: Ubuntu 22.04.4 LTS\n\nMatrix products: default\nBLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 \nLAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0\n\nlocale:\n [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              \n [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    \n [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   \n [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 \n [9] LC_ADDRESS=C               LC_TELEPHONE=C            \n[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       \n\ntime zone: Etc/UTC\ntzcode source: system (glibc)\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n[1] compiler_4.5.0\n"
+        }
+      ]
+    },
+    {
+      "tag": "ghcr.io/r-hub/containers/ubuntu-clang:latest",
+      "builds": [
+        {
+          "tag": "ghcr.io/r-hub/containers/ubuntu-clang:latest",
+          "id": "ghcr.io/r-hub/containers/ubuntu-clang@sha256:e51927635b5a53770815df9899e46bf5f9a35135f219c65281c954a5654f4767",
+          "size": 1945200899,
+          "created": "2024-04-09T06:12:48.161471464Z",
+          "/etc/os-release": "PRETTY_NAME=\"Ubuntu 22.04.4 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"22.04\"\nVERSION=\"22.04.4 LTS (Jammy Jellyfish)\"\nVERSION_CODENAME=jammy\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=jammy\n",
+          "uname -a": "Linux 82704c467c32 6.5.0-1017-azure #17~22.04.1-Ubuntu SMP Sat Mar  9 04:50:38 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux",
+          "sessionInfo()": "R Under development (unstable) (2024-04-08 r86370)\nPlatform: x86_64-pc-linux-gnu\nRunning under: Ubuntu 22.04.4 LTS\n\nMatrix products: default\nBLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 \nLAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0\n\nlocale:\n[1] C\n\ntime zone: Etc/UTC\ntzcode source: system (glibc)\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n[1] compiler_4.5.0\n"
+        }
+      ]
+    },
+    {
+      "tag": "ghcr.io/r-hub/containers/ubuntu-gcc12:latest",
+      "builds": [
+        {
+          "tag": "ghcr.io/r-hub/containers/ubuntu-gcc12:latest",
+          "id": "ghcr.io/r-hub/containers/ubuntu-gcc12@sha256:c6ff20afa6fa31735ee53742f510502c9b43506893467d0ecb7a573728623b36",
+          "size": 1248830456,
+          "created": "2024-04-09T06:16:20.406482824Z",
+          "/etc/os-release": "PRETTY_NAME=\"Ubuntu 22.04.4 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"22.04\"\nVERSION=\"22.04.4 LTS (Jammy Jellyfish)\"\nVERSION_CODENAME=jammy\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=jammy\n",
+          "uname -a": "Linux b3575bcafd19 6.5.0-1017-azure #17~22.04.1-Ubuntu SMP Sat Mar  9 04:50:38 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux",
+          "sessionInfo()": "R Under development (unstable) (2024-04-08 r86370)\nPlatform: x86_64-pc-linux-gnu\nRunning under: Ubuntu 22.04.4 LTS\n\nMatrix products: default\nBLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 \nLAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0\n\nlocale:\n[1] C\n\ntime zone: Etc/UTC\ntzcode source: system (glibc)\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n[1] compiler_4.5.0\n"
+        },
+        {
+          "tag": "ghcr.io/r-hub/containers/ubuntu-gcc12:latest",
+          "id": "ghcr.io/r-hub/containers/ubuntu-gcc12@sha256:6331177e064d023b93c759829cda12940a9b746d7998d88b0c81199147308625",
+          "size": 1248652478,
+          "created": "2024-04-08T06:13:33.032270912Z",
+          "/etc/os-release": "PRETTY_NAME=\"Ubuntu 22.04.4 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"22.04\"\nVERSION=\"22.04.4 LTS (Jammy Jellyfish)\"\nVERSION_CODENAME=jammy\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=jammy\n",
+          "uname -a": "Linux 9568e23fe0c8 6.5.0-1017-azure #17~22.04.1-Ubuntu SMP Sat Mar  9 04:50:38 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux",
+          "sessionInfo()": "R Under development (unstable) (2024-04-06 r86351)\nPlatform: x86_64-pc-linux-gnu\nRunning under: Ubuntu 22.04.4 LTS\n\nMatrix products: default\nBLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 \nLAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0\n\nlocale:\n[1] C\n\ntime zone: Etc/UTC\ntzcode source: system (glibc)\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n[1] compiler_4.5.0\n"
+        }
+      ]
+    },
+    {
+      "tag": "ghcr.io/r-hub/containers/ubuntu-next:latest",
+      "builds": [
+        {
+          "tag": "ghcr.io/r-hub/containers/ubuntu-next:latest",
+          "id": "ghcr.io/r-hub/containers/ubuntu-next@sha256:1cb48ff4a5b4347f8f19c1500384f3c94b1411a995e9963fe717718509dc0671",
+          "size": 1011441646,
+          "created": "2024-04-09T06:12:59.601235931Z",
+          "/etc/os-release": "PRETTY_NAME=\"Ubuntu 22.04.4 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"22.04\"\nVERSION=\"22.04.4 LTS (Jammy Jellyfish)\"\nVERSION_CODENAME=jammy\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=jammy\n",
+          "uname -a": "Linux 231944fe9e74 6.5.0-1017-azure #17~22.04.1-Ubuntu SMP Sat Mar  9 04:50:38 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux",
+          "sessionInfo()": "R version 4.4.0 alpha (2024-04-07 r86351)\nPlatform: x86_64-pc-linux-gnu\nRunning under: Ubuntu 22.04.4 LTS\n\nMatrix products: default\nBLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 \nLAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0\n\nlocale:\n [1] LC_CTYPE=en_GB.UTF-8       LC_NUMERIC=C              \n [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=C              \n [5] LC_MONETARY=en_GB.UTF-8    LC_MESSAGES=en_GB.UTF-8   \n [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C                 \n [9] LC_ADDRESS=C               LC_TELEPHONE=C            \n[11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C       \n\ntime zone: Etc/UTC\ntzcode source: system (glibc)\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n[1] compiler_4.4.0\n"
+        }
+      ]
+    },
+    {
+      "tag": "ghcr.io/r-hub/containers/ubuntu-release:latest",
+      "builds": [
+        {
+          "tag": "ghcr.io/r-hub/containers/ubuntu-release:latest",
+          "id": "ghcr.io/r-hub/containers/ubuntu-release@sha256:55ee8f90e44d17e1ef1577f146e8fc1230d4bcc6571d104160ab934992d931c2",
+          "size": 1006497583,
+          "created": "2024-04-09T06:13:01.492561439Z",
+          "/etc/os-release": "PRETTY_NAME=\"Ubuntu 22.04.4 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"22.04\"\nVERSION=\"22.04.4 LTS (Jammy Jellyfish)\"\nVERSION_CODENAME=jammy\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=jammy\n",
+          "uname -a": "Linux fd334ff5b20e 6.5.0-1017-azure #17~22.04.1-Ubuntu SMP Sat Mar  9 04:50:38 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux",
+          "sessionInfo()": "R version 4.3.3 (2024-02-29)\nPlatform: x86_64-pc-linux-gnu (64-bit)\nRunning under: Ubuntu 22.04.4 LTS\n\nMatrix products: default\nBLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 \nLAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0\n\nlocale:\n [1] LC_CTYPE=en_GB.UTF-8       LC_NUMERIC=C              \n [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=C              \n [5] LC_MONETARY=en_GB.UTF-8    LC_MESSAGES=en_GB.UTF-8   \n [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C                 \n [9] LC_ADDRESS=C               LC_TELEPHONE=C            \n[11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C       \n\ntime zone: Etc/UTC\ntzcode source: system (glibc)\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n[1] compiler_4.3.3\n"
+        }
+      ]
+    },
+    {
+      "tag": "ghcr.io/r-hub/containers/clang17:latest",
+      "builds": [
+        {
+          "tag": "ghcr.io/r-hub/containers/clang17:latest",
+          "id": "ghcr.io/r-hub/containers/clang17@sha256:ea84d4755f2f6a734cb5c81200bc15c23c8d16219054b960e60d282c0798f5b5",
+          "size": 2728052070,
+          "created": "2024-04-09T06:13:02.31898816Z",
+          "/etc/os-release": "PRETTY_NAME=\"Ubuntu 22.04.4 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"22.04\"\nVERSION=\"22.04.4 LTS (Jammy Jellyfish)\"\nVERSION_CODENAME=jammy\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=jammy\n",
+          "uname -a": "Linux 7926a1db6191 6.5.0-1017-azure #17~22.04.1-Ubuntu SMP Sat Mar  9 04:50:38 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux",
+          "sessionInfo()": "R Under development (unstable) (2024-04-06 r86351)\nPlatform: x86_64-pc-linux-gnu\nRunning under: Ubuntu 22.04.4 LTS\n\nMatrix products: default\nBLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 \nLAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0\n\nlocale:\n [1] LC_CTYPE=en_GB.UTF-8       LC_NUMERIC=C              \n [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=en_GB.UTF-8    \n [5] LC_MONETARY=en_GB.UTF-8    LC_MESSAGES=en_GB.UTF-8   \n [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C                 \n [9] LC_ADDRESS=C               LC_TELEPHONE=C            \n[11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C       \n\ntime zone: Etc/UTC\ntzcode source: system (glibc)\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n[1] compiler_4.5.0\n"
+        }
+      ]
+    },
+    {
+      "tag": "ghcr.io/r-hub/containers/valgrind:latest",
+      "builds": [
+        {
+          "tag": "ghcr.io/r-hub/containers/valgrind:latest",
+          "id": "ghcr.io/r-hub/containers/valgrind@sha256:61b2e645e1ed133d19bf301ec0c5fcac7e17520cbbb6fc61e830837862249a61",
+          "size": 1510253875,
+          "created": "2024-04-09T06:12:17.372118144Z",
+          "/etc/os-release": "NAME=\"Fedora Linux\"\nVERSION=\"38 (Container Image)\"\nID=fedora\nVERSION_ID=38\nVERSION_CODENAME=\"\"\nPLATFORM_ID=\"platform:f38\"\nPRETTY_NAME=\"Fedora Linux 38 (Container Image)\"\nANSI_COLOR=\"0;38;2;60;110;180\"\nLOGO=fedora-logo-icon\nCPE_NAME=\"cpe:/o:fedoraproject:fedora:38\"\nDEFAULT_HOSTNAME=\"fedora\"\nHOME_URL=\"https://fedoraproject.org/\"\nDOCUMENTATION_URL=\"https://docs.fedoraproject.org/en-US/fedora/f38/system-administrators-guide/\"\nSUPPORT_URL=\"https://ask.fedoraproject.org/\"\nBUG_REPORT_URL=\"https://bugzilla.redhat.com/\"\nREDHAT_BUGZILLA_PRODUCT=\"Fedora\"\nREDHAT_BUGZILLA_PRODUCT_VERSION=38\nREDHAT_SUPPORT_PRODUCT=\"Fedora\"\nREDHAT_SUPPORT_PRODUCT_VERSION=38\nSUPPORT_END=2024-05-14\nVARIANT=\"Container Image\"\nVARIANT_ID=container\n",
+          "uname -a": "Linux a5c2a7f80cfa 6.5.0-1017-azure #17~22.04.1-Ubuntu SMP Sat Mar  9 04:50:38 UTC 2024 x86_64 GNU/Linux",
+          "sessionInfo()": "R Under development (unstable) (2024-04-08 r86370)\nPlatform: x86_64-pc-linux-gnu\nRunning under: Fedora Linux 38 (Container Image)\n\nMatrix products: default\nBLAS/LAPACK: /usr/lib64/libopenblasp-r0.3.21.so;  LAPACK version 3.9.0\n\nlocale:\n [1] LC_CTYPE=en_GB.UTF-8       LC_NUMERIC=C              \n [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=en_GB.UTF-8    \n [5] LC_MONETARY=en_GB.UTF-8    LC_MESSAGES=en_GB.UTF-8   \n [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C                 \n [9] LC_ADDRESS=C               LC_TELEPHONE=C            \n[11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C       \n\ntime zone: Etc/UTC\ntzcode source: system (glibc)\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n[1] compiler_4.5.0\n"
+        }
+      ]
+    },
+    {
+      "tag": "ghcr.io/r-hub/containers/mkl:latest",
+      "builds": [
+        {
+          "tag": "ghcr.io/r-hub/containers/mkl:latest",
+          "id": "ghcr.io/r-hub/containers/mkl@sha256:ef906ff992318523e416f4cbd64318da2fea988e494346802182b4dbb8ef2d13",
+          "size": 6056784467,
+          "created": "2024-04-09T06:18:14.857992465Z",
+          "/etc/os-release": "NAME=\"Fedora Linux\"\nVERSION=\"38 (Container Image)\"\nID=fedora\nVERSION_ID=38\nVERSION_CODENAME=\"\"\nPLATFORM_ID=\"platform:f38\"\nPRETTY_NAME=\"Fedora Linux 38 (Container Image)\"\nANSI_COLOR=\"0;38;2;60;110;180\"\nLOGO=fedora-logo-icon\nCPE_NAME=\"cpe:/o:fedoraproject:fedora:38\"\nDEFAULT_HOSTNAME=\"fedora\"\nHOME_URL=\"https://fedoraproject.org/\"\nDOCUMENTATION_URL=\"https://docs.fedoraproject.org/en-US/fedora/f38/system-administrators-guide/\"\nSUPPORT_URL=\"https://ask.fedoraproject.org/\"\nBUG_REPORT_URL=\"https://bugzilla.redhat.com/\"\nREDHAT_BUGZILLA_PRODUCT=\"Fedora\"\nREDHAT_BUGZILLA_PRODUCT_VERSION=38\nREDHAT_SUPPORT_PRODUCT=\"Fedora\"\nREDHAT_SUPPORT_PRODUCT_VERSION=38\nSUPPORT_END=2024-05-14\nVARIANT=\"Container Image\"\nVARIANT_ID=container\n",
+          "uname -a": "Linux 2263b0d2665a 6.5.0-1017-azure #17~22.04.1-Ubuntu SMP Sat Mar  9 04:50:38 UTC 2024 x86_64 GNU/Linux",
+          "sessionInfo()": "R Under development (unstable) (2024-04-08 r86370)\nPlatform: x86_64-pc-linux-gnu\nRunning under: Fedora Linux 38 (Container Image)\n\nMatrix products: default\nBLAS/LAPACK: /opt/intel/oneapi/mkl/2023.2.0/lib/intel64/libmkl_gf_lp64.so.2;  LAPACK version 3.10.1\n\nlocale:\n [1] LC_CTYPE=en_GB.UTF-8       LC_NUMERIC=C              \n [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=en_GB.UTF-8    \n [5] LC_MONETARY=en_GB.UTF-8    LC_MESSAGES=en_GB.UTF-8   \n [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C                 \n [9] LC_ADDRESS=C               LC_TELEPHONE=C            \n[11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C       \n\ntime zone: Etc/UTC\ntzcode source: system (glibc)\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n[1] compiler_4.5.0\n"
+        }
+      ]
+    },
+    {
+      "tag": "ghcr.io/r-hub/containers/donttest:latest",
+      "builds": [
+        {
+          "tag": "ghcr.io/r-hub/containers/donttest:latest",
+          "id": "ghcr.io/r-hub/containers/donttest@sha256:ac9f1517391287c1e341fbb4e7896ef2e9fcebc0a82473a78b0f90564e26e564",
+          "size": 1088057712,
+          "created": "2024-04-09T06:13:16.076828942Z",
+          "/etc/os-release": "PRETTY_NAME=\"Ubuntu 22.04.4 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"22.04\"\nVERSION=\"22.04.4 LTS (Jammy Jellyfish)\"\nVERSION_CODENAME=jammy\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=jammy\n",
+          "uname -a": "Linux e3d53d796a51 6.5.0-1017-azure #17~22.04.1-Ubuntu SMP Sat Mar  9 04:50:38 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux",
+          "sessionInfo()": "R Under development (unstable) (2024-04-06 r86351)\nPlatform: x86_64-pc-linux-gnu\nRunning under: Ubuntu 22.04.4 LTS\n\nMatrix products: default\nBLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 \nLAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0\n\nlocale:\n [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              \n [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    \n [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   \n [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 \n [9] LC_ADDRESS=C               LC_TELEPHONE=C            \n[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       \n\ntime zone: Etc/UTC\ntzcode source: system (glibc)\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n[1] compiler_4.5.0\n"
+        }
+      ]
+    },
+    {
+      "tag": "ghcr.io/r-hub/containers/intel:latest",
+      "builds": [
+        {
+          "tag": "ghcr.io/r-hub/containers/intel:latest",
+          "id": "ghcr.io/r-hub/containers/intel@sha256:3661a0f9d00ba84e5a3700342d075bb120ed9d25de6c7a27d3eaa82d1aff7d12",
+          "size": 10266420507,
+          "created": "2024-04-09T06:25:47.645001386Z",
+          "/etc/os-release": "NAME=\"Fedora Linux\"\nVERSION=\"38 (Container Image)\"\nID=fedora\nVERSION_ID=38\nVERSION_CODENAME=\"\"\nPLATFORM_ID=\"platform:f38\"\nPRETTY_NAME=\"Fedora Linux 38 (Container Image)\"\nANSI_COLOR=\"0;38;2;60;110;180\"\nLOGO=fedora-logo-icon\nCPE_NAME=\"cpe:/o:fedoraproject:fedora:38\"\nDEFAULT_HOSTNAME=\"fedora\"\nHOME_URL=\"https://fedoraproject.org/\"\nDOCUMENTATION_URL=\"https://docs.fedoraproject.org/en-US/fedora/f38/system-administrators-guide/\"\nSUPPORT_URL=\"https://ask.fedoraproject.org/\"\nBUG_REPORT_URL=\"https://bugzilla.redhat.com/\"\nREDHAT_BUGZILLA_PRODUCT=\"Fedora\"\nREDHAT_BUGZILLA_PRODUCT_VERSION=38\nREDHAT_SUPPORT_PRODUCT=\"Fedora\"\nREDHAT_SUPPORT_PRODUCT_VERSION=38\nSUPPORT_END=2024-05-14\nVARIANT=\"Container Image\"\nVARIANT_ID=container\n",
+          "uname -a": "Linux ba7c264ea546 6.5.0-1017-azure #17~22.04.1-Ubuntu SMP Sat Mar  9 04:50:38 UTC 2024 x86_64 GNU/Linux",
+          "sessionInfo()": "R Under development (unstable) (2024-04-08 r86370)\nPlatform: x86_64-pc-linux-gnu\nRunning under: Fedora Linux 38 (Container Image)\n\nMatrix products: default\nBLAS/LAPACK: /opt/intel/oneapi/mkl/2023.2.0/lib/intel64/libmkl_intel_lp64.so.2;  LAPACK version 3.10.1\n\nlocale:\n [1] LC_CTYPE=en_GB.UTF-8       LC_NUMERIC=C              \n [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=en_GB.UTF-8    \n [5] LC_MONETARY=en_GB.UTF-8    LC_MESSAGES=en_GB.UTF-8   \n [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C                 \n [9] LC_ADDRESS=C               LC_TELEPHONE=C            \n[11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C       \n\ntime zone: Etc/UTC\ntzcode source: system (glibc)\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n[1] compiler_4.5.0\n"
+        }
+      ]
+    },
+    {
+      "tag": "ghcr.io/r-hub/containers/nosuggests:latest",
+      "builds": [
+        {
+          "tag": "ghcr.io/r-hub/containers/nosuggests:latest",
+          "id": "ghcr.io/r-hub/containers/nosuggests@sha256:ab3185b14949e623daefc9b2438727aa5e82dbff880d5cd43727d6e956a911aa",
+          "size": 1779022921,
+          "created": "2024-04-09T06:12:53.124367631Z",
+          "/etc/os-release": "NAME=\"Fedora Linux\"\nVERSION=\"38 (Container Image)\"\nID=fedora\nVERSION_ID=38\nVERSION_CODENAME=\"\"\nPLATFORM_ID=\"platform:f38\"\nPRETTY_NAME=\"Fedora Linux 38 (Container Image)\"\nANSI_COLOR=\"0;38;2;60;110;180\"\nLOGO=fedora-logo-icon\nCPE_NAME=\"cpe:/o:fedoraproject:fedora:38\"\nDEFAULT_HOSTNAME=\"fedora\"\nHOME_URL=\"https://fedoraproject.org/\"\nDOCUMENTATION_URL=\"https://docs.fedoraproject.org/en-US/fedora/f38/system-administrators-guide/\"\nSUPPORT_URL=\"https://ask.fedoraproject.org/\"\nBUG_REPORT_URL=\"https://bugzilla.redhat.com/\"\nREDHAT_BUGZILLA_PRODUCT=\"Fedora\"\nREDHAT_BUGZILLA_PRODUCT_VERSION=38\nREDHAT_SUPPORT_PRODUCT=\"Fedora\"\nREDHAT_SUPPORT_PRODUCT_VERSION=38\nSUPPORT_END=2024-05-14\nVARIANT=\"Container Image\"\nVARIANT_ID=container\n",
+          "uname -a": "Linux 14d5c71c0aa2 6.5.0-1017-azure #17~22.04.1-Ubuntu SMP Sat Mar  9 04:50:38 UTC 2024 x86_64 GNU/Linux",
+          "sessionInfo()": "R Under development (unstable) (2024-04-08 r86370)\nPlatform: x86_64-pc-linux-gnu\nRunning under: Fedora Linux 38 (Container Image)\n\nMatrix products: default\nBLAS/LAPACK: /usr/lib64/libopenblasp-r0.3.21.so;  LAPACK version 3.9.0\n\nlocale:\n [1] LC_CTYPE=en_GB.UTF-8       LC_NUMERIC=C              \n [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=en_GB.UTF-8    \n [5] LC_MONETARY=en_GB.UTF-8    LC_MESSAGES=en_GB.UTF-8   \n [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C                 \n [9] LC_ADDRESS=C               LC_TELEPHONE=C            \n[11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C       \n\ntime zone: Etc/UTC\ntzcode source: system (glibc)\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n[1] compiler_4.5.0\n"
+        }
+      ]
+    },
+    {
+      "tag": "ghcr.io/r-hub/containers/clang18:latest",
+      "builds": [
+        {
+          "tag": "ghcr.io/r-hub/containers/clang18:latest",
+          "id": "ghcr.io/r-hub/containers/clang18@sha256:feab9e4efe20107844dad9cf746056dd8b67a97b3b7df16b49822a8c4c1674ac",
+          "size": 2854098910,
+          "created": "2024-04-09T06:12:55.002344268Z",
+          "/etc/os-release": "PRETTY_NAME=\"Ubuntu 22.04.4 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"22.04\"\nVERSION=\"22.04.4 LTS (Jammy Jellyfish)\"\nVERSION_CODENAME=jammy\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=jammy\n",
+          "uname -a": "Linux 24d98552f728 6.5.0-1017-azure #17~22.04.1-Ubuntu SMP Sat Mar  9 04:50:38 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux",
+          "sessionInfo()": "R Under development (unstable) (2024-04-06 r86351)\nPlatform: x86_64-pc-linux-gnu\nRunning under: Ubuntu 22.04.4 LTS\n\nMatrix products: default\nBLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 \nLAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0\n\nlocale:\n [1] LC_CTYPE=en_GB.UTF-8       LC_NUMERIC=C              \n [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=en_GB.UTF-8    \n [5] LC_MONETARY=en_GB.UTF-8    LC_MESSAGES=en_GB.UTF-8   \n [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C                 \n [9] LC_ADDRESS=C               LC_TELEPHONE=C            \n[11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C       \n\ntime zone: Etc/UTC\ntzcode source: system (glibc)\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n[1] compiler_4.5.0\n"
+        }
+      ]
+    }
+  ]
+}

@@ -1,60 +1,57 @@
-
-context("api")
-
-test_that("query", {
-  res <- NULL
-  with_mock(
-    `httr::GET` = function(...) res <<- list(...),
-    `httr::status_code` = function(...) { 200 },
-    `httr::headers` = function(...) { },
-    `httr::content` = function(...) { },
-    query("GET PLATFORMS")
-  )
-  expect_equal(length(res), 3)
-  expect_true(is_string(res[[1]]))
-  expect_equal(class(res[[2]]), "request")
-
-  called <- FALSE
-  with_mock(
-    `rhub:::get_endpoint` = function(endpoint, params)
-      list(method = endpoint, path = "p"),
-    `httr::POST` = function(...) called <<- "POST",
-    `httr::DELETE` = function(...) called <<- "DELETE",
-    `rhub:::report_error` = function(...) { },
-    `rhub:::parse_response` = function(...) { },
-    query("POST"),
-    expect_identical(called, "POST"),
-    query("DELETE"),
-    expect_identical(called, "DELETE"),
-    expect_error(query("FOOBAR"), "Unexpected HTTP verb")
-  )
+test_that("query GET", {
+  withr::local_envvar(RHUB_SERVER = http$url())
+  expect_snapshot({
+    cat(rawToChar(query("/get")$content))
+  }, transform = function(x) redact_port(redact_ae_header(x)))
 })
 
-test_that("parse_response", {
-  with_mock(
-    `httr::headers` = function(...)
-      list("content-type" = "application/json; charset: utf8"),
-    `httr::content` = function(...)
-      '{ "foo": "bar", "bar": [1,2,3] }',
-    expect_equal(
-      parse_response(NULL, as = NULL),
-      list(foo = "bar", bar = list(1,2,3))
-    ),
-    expect_equal(
-      parse_response(NULL, as = "text"),
-      '{ "foo": "bar", "bar": [1,2,3] }'
-    )
-  )
+test_that("query HTTP errors", {
+  withr::local_envvar(RHUB_SERVER = http$url())
+  expect_snapshot(error = TRUE, {
+    query("/rhub-error?msg=iamsosorryabouththat")
+  })
+  expect_snapshot(error = TRUE, {
+    query("/rhub-error2")
+  })
+  expect_snapshot(error = TRUE, {
+    query("/rhub-error3")
+  })
+})
 
-  with_mock(
-    `httr::headers` = function(...) list(),
-    `httr::content` = function(...) "foobar",
-    expect_equal(parse_response(NULL), "foobar")
-  )
+test_that("query POST", {
+  withr::local_envvar(RHUB_SERVER = http$url())
+  data <- charToRaw(jsonlite::toJSON(list(foo = "bar", foobar = 1:3)))
+  expect_snapshot({
+    cat(rawToChar(query("/post", method = "POST", data = data)$content))
+  }, transform = function(x) redact_port(redact_ae_header(x)))
+})
 
-  with_mock(
-    `httr::headers` = function(...) list("content-type" = "text/plain"),
-    `httr::content` = function(...) "foobar",
-    expect_equal(parse_response(NULL), "foobar")
-  )
+test_that("query, unknown verb", {
+  withr::local_envvar(RHUB_SERVER = http$url())
+  expect_snapshot(error = TRUE, {
+    query("/anything", method = "REPORT")
+    query("/anything", method = "REPORT", sse = TRUE)
+  }, transform = redact_port)
+})
+
+test_that("query SSE", {
+  withr::local_envvar(RHUB_SERVER = http$url())
+  data <- charToRaw(jsonlite::toJSON(list(foo = "bar", foobar = 1:3)))
+  expect_snapshot({
+    query("/sse", sse = TRUE)$sse
+    query("/sse", method = "POST", data = data, sse = TRUE)$sse
+  })
+
+  # progress, result
+  expect_snapshot({
+    resp <- query("/sse?progress=true&numevents=2", sse = TRUE)
+    cat(rawToChar(resp$content))
+  })
+
+  # progress, result, error
+  expect_snapshot(error = TRUE, {
+    resp <- query("/sse?progress=true&numevents=2&error=true", sse = TRUE)
+    cat(rawToChar(resp$content))
+  })
+
 })
